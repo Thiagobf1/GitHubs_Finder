@@ -1,8 +1,13 @@
-import React from 'react'
+import Search from "../components/Search"
+import { useState } from "react"
 
 const Home = () => {
+  const {user, setUser} = useState(null);
+
   return (
-    <div>Home</div>
+    <div>
+      <Search />
+    </div>
   )
 }
 

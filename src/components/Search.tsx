@@ -9,7 +9,7 @@ const Search = () => {
       <div>
         <input type="text" placeholder='Digite o nome do usuário' />
         <button type="button">
-          <BsSearch.Search/>        
+          <BsSearch/>        
         </button>
       </div>
     </div>
