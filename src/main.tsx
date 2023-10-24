@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Home from "./routes/Home.tsx"
 
-const router = createBrowserRouter()[
+const router = createBrowserRouter([
   { 
-    path: "/"
+    path: "/",
     element: <App/>,
     children: [
       {
@@ -18,12 +18,10 @@ const router = createBrowserRouter()[
       }
     ]
   }
-]
-
-
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
   </React.StrictMode>,
 )
