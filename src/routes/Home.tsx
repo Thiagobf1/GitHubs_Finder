@@ -13,18 +13,26 @@ const Home = () => {
 
     // Correção: Atualize o estado com os dados do usuário.
     setUser(data);
+
+    const {avatar_url, login, location, followers, following} = data;
+
+    const userData: UserProps = {
+      avatar_url,
+      login,
+      location,
+      followers,
+      following,
+    };
+
+    setUser(userData);
+
+
   };
 
   return (
     <div>
       <Search loadUser={loadUser} />
-      {/* Correção: Exibir informações do usuário, se disponível. */}
-      {user && (
-        <div>
-          <h2>User Information</h2>
-          <pre>{JSON.stringify(user, null, 2)}</pre>
-        </div>
-      )}
+      {user && <p>{user.login}</p>}
     </div>
   );
 };
