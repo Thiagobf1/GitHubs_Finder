@@ -1,10 +1,12 @@
-import { UserProps } from "../Types/User";
+import { UserProps } from "../Types/user";
 import { MdLocationPin } from "react-icons/md";
+
+import {Link} from "react-router-dom"
 
 const User = ({ login, avatar_url, followers, following, location }: UserProps) => {
   return (
     <div>
-      <img src={avatar} alt={login} />
+      <img src={avatar_url} alt={login} />
       <h2>{login}</h2>
       <p>
         <MdLocationPin />
@@ -17,6 +19,9 @@ const User = ({ login, avatar_url, followers, following, location }: UserProps) 
       <div>
         <p>Seguindo:</p>
         <p>{following}</p>
+      </div>
+      <div>
+        <Link to={"/repos/${login}"}>Ver melhores projetos</Link>
       </div>
     </div>
   );

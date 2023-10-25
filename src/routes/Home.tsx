@@ -1,6 +1,7 @@
 import { UserProps } from "../Types/user";
 import Search from "../components/Search";
 import { useState } from "react";
+import User from "../components/User";
 
 const Home = () => {
   // Correção: Use useState para criar um estado e uma variável para armazená-lo.
@@ -32,7 +33,7 @@ const Home = () => {
   return (
     <div>
       <Search loadUser={loadUser} />
-      {user && <p>{user.login}</p>}
+      {user && <User{...user}/>}
     </div>
   );
 };
