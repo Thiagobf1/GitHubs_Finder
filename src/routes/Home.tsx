@@ -2,13 +2,23 @@ import { UserProps } from "../Types/user";
 import Search from "../components/Search";
 import { useState } from "react";
 import User from "../components/User";
+import Error from "../components/Error";
 
 const Home = () => {
-  // Correção: Use useState para criar um estado e uma variável para armazená-lo.
   const [user, setUser] = useState<UserProps | null>(null);
+  const [error, setError] = useState(false);
 
   const loadUser = async (userName: string) => {
+
+    setError(false);
+    setUser(null);
+
     const res = await fetch(`https://api.github.com/users/${userName}`); // Correção: Use crases (`) para interpolação da string.
+
+    if(res.status === 404) {
+      setError(true);
+      return;
+    }
 
     const data = await res.json();
 
@@ -24,16 +34,14 @@ const Home = () => {
       followers,
       following,
     };
-
     setUser(userData);
-
-
   };
 
   return (
     <div>
       <Search loadUser={loadUser} />
       {user && <User{...user}/>}
+      {error && <Error />}
     </div>
   );
 };
