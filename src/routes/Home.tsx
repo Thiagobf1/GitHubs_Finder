@@ -1,31 +1,35 @@
-import { UserProps } from "../Types/user";
-import Search from "../components/Search";
+import { UserProps } from "../types/user";
+
 import { useState } from "react";
+
+import Search from "../components/Search";
 import User from "../components/User";
 import Error from "../components/Error";
+import Loader from "../components/Loader";
 
 const Home = () => {
   const [user, setUser] = useState<UserProps | null>(null);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const loadUser = async (userName: string) => {
-
-    setError(false);
+  const loadUser = async function (userName: string) {
     setUser(null);
+    setIsLoading(true);
 
-    const res = await fetch(`https://api.github.com/users/${userName}`); // Correção: Use crases (`) para interpolação da string.
+    const res = await fetch(`https://api.github.com/users/${userName}`);
 
-    if(res.status === 404) {
+    const data = await res.json();
+
+    setIsLoading(false);
+
+    if (res.status === 404) {
       setError(true);
       return;
     }
 
-    const data = await res.json();
+    setError(false);
 
-    // Correção: Atualize o estado com os dados do usuário.
-    setUser(data);
-
-    const {avatar_url, login, location, followers, following} = data;
+    const { avatar_url, login, location, followers, following } = data;
 
     const userData: UserProps = {
       avatar_url,
@@ -34,13 +38,15 @@ const Home = () => {
       followers,
       following,
     };
+
     setUser(userData);
   };
 
   return (
     <div>
       <Search loadUser={loadUser} />
-      {user && <User{...user}/>}
+      {isLoading && <Loader />}
+      {user && <User {...user} />}
       {error && <Error />}
     </div>
   );
